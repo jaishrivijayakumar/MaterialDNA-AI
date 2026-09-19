@@ -4,8 +4,12 @@ MaterialDNA AI — Audit Trail Router
 
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
-from ..database import get_db
-from ..models import AuditLog
+try:
+    from ..database import get_db
+    from ..models import AuditLog
+except (ImportError, ValueError):
+    from database import get_db
+    from models import AuditLog
 
 router = APIRouter(prefix="/api/audit", tags=["audit"])
 

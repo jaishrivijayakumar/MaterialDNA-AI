@@ -5,17 +5,31 @@ Mounts all routers, initializes database, seeds data,
 and builds the TF-IDF retriever index on startup.
 """
 
+import os
+import sys
+
+# Ensure backend root directory is in sys.path
+_BACKEND_DIR = os.path.dirname(os.path.abspath(__file__))
+if _BACKEND_DIR not in sys.path:
+    sys.path.insert(0, _BACKEND_DIR)
+
 import json
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .database import init_db, SessionLocal
-from .seed import seed_database
-from .engine.retriever import get_retriever
-from .models import Material
-
-from .routers import materials, matching, reviews, identities, analytics, audit, upload
+try:
+    from .database import init_db, SessionLocal
+    from .seed import seed_database
+    from .engine.retriever import get_retriever
+    from .models import Material
+    from .routers import materials, matching, reviews, identities, analytics, audit, upload
+except (ImportError, ValueError):
+    from database import init_db, SessionLocal
+    from seed import seed_database
+    from engine.retriever import get_retriever
+    from models import Material
+    from routers import materials, matching, reviews, identities, analytics, audit, upload
 
 
 @asynccontextmanager

@@ -6,9 +6,14 @@ import json
 import uuid
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from ..database import get_db
-from ..models import MaterialIdentity, Material, AuditLog
-from ..schemas import IdentityResponse, CreateIdentityRequest
+try:
+    from ..database import get_db
+    from ..models import MaterialIdentity, Material, AuditLog
+    from ..schemas import IdentityResponse, CreateIdentityRequest
+except (ImportError, ValueError):
+    from database import get_db
+    from models import MaterialIdentity, Material, AuditLog
+    from schemas import IdentityResponse, CreateIdentityRequest
 
 router = APIRouter(prefix="/api/material-identities", tags=["identities"])
 

@@ -11,10 +11,16 @@ import uuid
 from datetime import datetime, timezone, timedelta
 from sqlalchemy.orm import Session
 
-from .models import Material, MatchResult, Review, MaterialIdentity, AuditLog
-from .engine.normalizer import normalize_description
-from .engine.extractor import extract_attributes
-from .engine.pipeline import generate_standardized_code
+try:
+    from .models import Material, MatchResult, Review, MaterialIdentity, AuditLog
+    from .engine.normalizer import normalize_description
+    from .engine.extractor import extract_attributes
+    from .engine.pipeline import generate_standardized_code
+except (ImportError, ValueError):
+    from models import Material, MatchResult, Review, MaterialIdentity, AuditLog
+    from engine.normalizer import normalize_description
+    from engine.extractor import extract_attributes
+    from engine.pipeline import generate_standardized_code
 
 # ── Material Records ────────────────────────────────────────────────────────
 

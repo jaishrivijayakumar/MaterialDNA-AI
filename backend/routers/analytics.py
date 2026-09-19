@@ -6,9 +6,14 @@ import json
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from sqlalchemy import func
-from ..database import get_db
-from ..models import Material, MatchResult, Review, MaterialIdentity, AuditLog
-from ..schemas import AnalyticsResponse
+try:
+    from ..database import get_db
+    from ..models import Material, MatchResult, Review, MaterialIdentity, AuditLog
+    from ..schemas import AnalyticsResponse
+except (ImportError, ValueError):
+    from database import get_db
+    from models import Material, MatchResult, Review, MaterialIdentity, AuditLog
+    from schemas import AnalyticsResponse
 
 router = APIRouter(prefix="/api/analytics", tags=["analytics"])
 

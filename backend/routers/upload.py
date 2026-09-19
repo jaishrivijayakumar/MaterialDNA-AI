@@ -8,12 +8,20 @@ import uuid
 from fastapi import APIRouter, Depends, UploadFile, File, HTTPException
 from sqlalchemy.orm import Session
 import pandas as pd
-from ..database import get_db
-from ..models import Material, AuditLog
-from ..engine.normalizer import normalize_description
-from ..engine.extractor import extract_attributes
-from ..engine.retriever import get_retriever, reset_retriever
-from ..schemas import UploadPreview, UploadResult
+try:
+    from ..database import get_db
+    from ..models import Material, AuditLog
+    from ..engine.normalizer import normalize_description
+    from ..engine.extractor import extract_attributes
+    from ..engine.retriever import get_retriever, reset_retriever
+    from ..schemas import UploadPreview, UploadResult
+except (ImportError, ValueError):
+    from database import get_db
+    from models import Material, AuditLog
+    from engine.normalizer import normalize_description
+    from engine.extractor import extract_attributes
+    from engine.retriever import get_retriever, reset_retriever
+    from schemas import UploadPreview, UploadResult
 
 router = APIRouter(prefix="/api/materials", tags=["upload"])
 

@@ -6,9 +6,14 @@ import json
 from datetime import datetime, timezone
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from ..database import get_db
-from ..models import Review, Material, MatchResult, AuditLog
-from ..schemas import ReviewResponse, ReviewAction
+try:
+    from ..database import get_db
+    from ..models import Review, Material, MatchResult, AuditLog
+    from ..schemas import ReviewResponse, ReviewAction
+except (ImportError, ValueError):
+    from database import get_db
+    from models import Review, Material, MatchResult, AuditLog
+    from schemas import ReviewResponse, ReviewAction
 
 router = APIRouter(prefix="/api/reviews", tags=["reviews"])
 

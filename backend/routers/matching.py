@@ -6,12 +6,20 @@ import json
 import uuid
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from ..database import get_db
-from ..models import Material, MatchResult, Review, AuditLog
-from ..schemas import MatchRequest, MatchResponse
-from ..engine.pipeline import run_matching_pipeline
-from ..engine.normalizer import normalize_description
-from ..engine.extractor import extract_attributes
+try:
+    from ..database import get_db
+    from ..models import Material, MatchResult, Review, AuditLog
+    from ..schemas import MatchRequest, MatchResponse
+    from ..engine.pipeline import run_matching_pipeline
+    from ..engine.normalizer import normalize_description
+    from ..engine.extractor import extract_attributes
+except (ImportError, ValueError):
+    from database import get_db
+    from models import Material, MatchResult, Review, AuditLog
+    from schemas import MatchRequest, MatchResponse
+    from engine.pipeline import run_matching_pipeline
+    from engine.normalizer import normalize_description
+    from engine.extractor import extract_attributes
 
 router = APIRouter(prefix="/api", tags=["matching"])
 

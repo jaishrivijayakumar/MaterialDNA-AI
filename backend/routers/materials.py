@@ -5,9 +5,14 @@ MaterialDNA AI — Materials Router
 import json
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
-from ..database import get_db
-from ..models import Material
-from ..schemas import MaterialResponse, MaterialListResponse
+try:
+    from ..database import get_db
+    from ..models import Material
+    from ..schemas import MaterialResponse, MaterialListResponse
+except (ImportError, ValueError):
+    from database import get_db
+    from models import Material
+    from schemas import MaterialResponse, MaterialListResponse
 
 router = APIRouter(prefix="/api/materials", tags=["materials"])
 

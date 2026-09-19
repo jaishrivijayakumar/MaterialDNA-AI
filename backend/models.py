@@ -5,7 +5,10 @@ MaterialDNA AI — ORM Models
 import json
 from datetime import datetime, timezone
 from sqlalchemy import Column, Integer, String, Float, Text, DateTime, Boolean
-from .database import Base
+try:
+    from .database import Base
+except (ImportError, ValueError):
+    from database import Base
 
 
 def utcnow():
