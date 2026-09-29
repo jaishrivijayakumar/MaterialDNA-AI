@@ -472,4 +472,3 @@ The frontend application will be accessible at `http://localhost:5173`.
 - **Project**: MaterialDNA AI
 - **Repository Maintainer**: [Jaishri Vijayakumar](https://github.com/jaishrivijayakumar)
 - **Team / Organization**: CodeUnify
-```
